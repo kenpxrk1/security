@@ -10,3 +10,10 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: false
+
+auth:
+  default-role: ROLE_USER
+
+logging:
+  level:
+    org.springframework.security: DEBUG

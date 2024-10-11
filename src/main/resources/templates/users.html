@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Users</title>
+</head>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f0f4f8;
+        padding: 20px;
+    }
+
+    .add-button {
+        display: inline-block;
+        margin-bottom: 20px;
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: white;
+        border-radius: 4px;
+        text-decoration: none;
+        font-weight: bold;
+        transition: background-color 0.3s ease;
+    }
+
+    .add-button:hover {
+        background-color: #0056b3;
+    }
+
+    #user-table {
+        width: 100%;
+        border-collapse: collapse;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    #user-table th, #user-table td {
+        padding: 10px;
+        border: 1px solid #ddd;
+    }
+
+    #user-table thead tr {
+        background-color: #007bff;
+        color: white;
+    }
+
+    #user-table tbody tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+
+    .edit-button, .delete-button {
+        padding: 8px 16px;
+        color: white;
+        text-decoration: none;
+        border-radius: 4px;
+        transition: background-color 0.3s ease;
+    }
+
+    .edit-button {
+        background-color: #28a745;
+    }
+
+    .edit-button:hover {
+        background-color: #218838;
+    }
+
+    .delete-button {
+        background-color: #dc3545;
+    }
+
+    .delete-button:hover {
+        background-color: #c82333;
+    }
+</style>
+<body>
+<a href="#" th:href="@{/users/add}" class="add-button">Add New User</a>
+<table id="user-table">
+    <thead>
+    <tr>
+        <th>Username</th>
+        <th>Email</th>
+        <th>Age</th>
+        <th>Update</th>
+        <th>Delete</th>
+    </tr>
+    </thead>
+    <tr th:each="user : ${users}">
+        <td th:text="${user.username}"></td>
+        <td th:text="${user.email}"></td>
+        <td th:text="${user.age}"></td>
+        <td>
+            <a th:href="@{'/admin/users/edit/' + ${user.id}}" class="edit-button">Edit</a>
+
+        </td>
+        <td>
+            <a th:href="@{'/admin/users/delete/' + ${user.id}}" class="delete-button">Delete</a>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

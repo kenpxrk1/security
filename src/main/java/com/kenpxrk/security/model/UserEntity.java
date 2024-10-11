@@ -33,7 +33,14 @@ public class UserEntity implements UserDetails {
     @Column(nullable = false, unique = true)
     private String email;
 
-    @Column
+    public UserEntity(String username, String email, Integer age, String password) {
+        this.username = username;
+        this.email = email;
+        this.age = age;
+        this.password = password;
+    }
+
+    @Column(nullable = false)
     private Integer age;
 
     @Column(nullable = false)

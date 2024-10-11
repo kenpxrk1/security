@@ -36,4 +36,13 @@ public class RoleEntity implements GrantedAuthority {
     public String getAuthority() {
         return getName();
     }
+
+    public RoleEntity(String name) {
+        this.name = name;
+    }
+
+    public RoleEntity(Long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
 }
