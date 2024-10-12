@@ -60,9 +60,9 @@ form button:hover {
 </style>
 <body>
 
-<h1>Registration</h1>
+<h1>Add user</h1>
 
-<form th:action="@{/register}" th:object="${registerForm}" method="post">
+<form th:action="@{'/admin/users/add'}" th:object="${user}" method="post">
     <div>
         <label for="username">Username:</label>
         <input type="text" id="username" th:field="*{username}" required>

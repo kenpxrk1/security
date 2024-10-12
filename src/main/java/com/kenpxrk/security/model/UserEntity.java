@@ -32,6 +32,13 @@ public class UserEntity implements UserDetails {
 
     @Column(nullable = false, unique = true)
     private String email;
+    @Column(nullable = false)
+    private Integer age;
+    @Column(nullable = false)
+    private String password;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @Column
+    private Set<RoleEntity> roles;
 
     public UserEntity(String username, String email, Integer age, String password) {
         this.username = username;
@@ -39,16 +46,6 @@ public class UserEntity implements UserDetails {
         this.age = age;
         this.password = password;
     }
-
-    @Column(nullable = false)
-    private Integer age;
-
-    @Column(nullable = false)
-    private String password;
-
-    @ManyToMany(fetch = FetchType.EAGER)
-    @Column
-    private Set<RoleEntity> roles;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

@@ -6,12 +6,12 @@ import com.kenpxrk.security.exception.PasswordsDontMatchException;
 import com.kenpxrk.security.exception.RoleNotFoundException;
 import com.kenpxrk.security.exception.UserNotFoundException;
 import com.kenpxrk.security.mapper.UserMapper;
+import com.kenpxrk.security.model.RoleEntity;
 import com.kenpxrk.security.model.UserEntity;
 import com.kenpxrk.security.repository.RoleRepository;
 import com.kenpxrk.security.repository.UserRepository;
 import com.kenpxrk.security.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -55,6 +55,15 @@ public class UserServiceImpl implements UserService {
         UserEntity userEntity = mapper.registerFormToUserEntity(registerFormDto);
         userEntity.setRoles(Set.of(roleRepository.findByName("ROLE_USER").orElseThrow(RoleNotFoundException::new)));
         userRepository.save(userEntity);
+    }
+
+    @Transactional
+    @Override
+    public void updateUserRoles(Long id, List<String> roleNames) {
+        UserEntity user = userRepository.findById(id).orElseThrow(UserNotFoundException::new);
+        Set<RoleEntity> roles = roleRepository.findByNameIn(roleNames);
+        user.setRoles(roles);
+        userRepository.save(user);
     }
 
     @Transactional

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Обновление ролей пользователя</title>
+</head>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        color: #333;
+        margin: 0;
+        padding: 20px;
+    }
+
+    h1 {
+        text-align: center;
+        color: #4CAF50;
+    }
+
+    form {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        max-width: 500px;
+        margin: 0 auto;
+    }
+
+    h3 {
+        margin-bottom: 10px;
+        color: #555;
+    }
+
+    label {
+        display: block;
+        margin: 10px 0;
+        font-size: 16px;
+        cursor: pointer;
+    }
+
+    input[type="checkbox"] {
+        margin-right: 10px;
+        transform: scale(1.2);
+        cursor: pointer;
+    }
+
+    button {
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        transition: background-color 0.3s;
+        margin-right: 10px;
+    }
+
+    button:hover {
+        background-color: #45a049;
+    }
+
+    a {
+        text-decoration: none;
+        color: #4CAF50;
+        font-size: 16px;
+        margin-top: 20px;
+        display: inline-block;
+    }
+
+    a:hover {
+        text-decoration: underline;
+    }
+</style>
+<body>
+<h1>Обновление ролей для пользователя: <span th:text="${user.username}"></span></h1>
+
+<form th:action="@{/admin/users/edit-roles/{id}(id=${user.id})}" method="post">
+    <div>
+        <h3>Доступные роли:</h3>
+        <div th:each="role : ${roles}">
+            <label>
+                <input type="checkbox" th:name="'roles'" th:value="${role.name}"
+                       th:checked="${user.roles.contains(role)}" />
+                <span th:text="${role.name}"></span>
+            </label>
+        </div>
+    </div>
+    <div>
+        <button type="submit">Сохранить изменения</button>
+        <a th:href="@{/admin/users}">Назад к пользователям</a>
+    </div>
+</form>
+</body>
+</html>
